@@ -13,7 +13,10 @@ public class AdminDashboard extends JFrame {
 
         JButton btnEmployee = new JButton("Employee Management");
 
-        btnEmployee.addActionListener(e -> new EmployeeManagement());
+        btnEmployee.addActionListener(e -> {
+            new EmployeeManagement();
+            dispose();
+        });
 
         add(btnEmployee);
      
