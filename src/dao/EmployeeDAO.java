@@ -110,4 +110,24 @@ public class EmployeeDAO {
 
         return false;
     }
+    public boolean deleteEmployee(int employeeId) {
+
+        try {
+
+            Connection con = DBConnection.getConnection();
+
+            String sql = "DELETE FROM employees WHERE employee_id=?";
+
+            PreparedStatement ps = con.prepareStatement(sql);
+
+            ps.setInt(1, employeeId);
+
+            return ps.executeUpdate() > 0;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
 }

@@ -171,6 +171,41 @@ public class EmployeeManagement extends JFrame {
             }
 
         });
+        btnDelete.addActionListener(e -> {
+
+            if (selectedEmployeeId == -1) {
+                JOptionPane.showMessageDialog(this, "Please select an employee first!");
+                return;
+            }
+
+            int choice = JOptionPane.showConfirmDialog(
+                    this,
+                    "Are you sure you want to delete this employee?",
+                    "Confirm Delete",
+                    JOptionPane.YES_NO_OPTION
+            );
+
+            if (choice == JOptionPane.YES_OPTION) {
+
+                EmployeeDAO dao = new EmployeeDAO();
+
+                if (dao.deleteEmployee(selectedEmployeeId)) {
+
+                    JOptionPane.showMessageDialog(this, "Employee Deleted Successfully!");
+
+                    loadEmployees();
+
+                    selectedEmployeeId = -1;
+
+                } else {
+
+                    JOptionPane.showMessageDialog(this, "Delete Failed!");
+
+                }
+
+            }
+
+        });
 
         buttonPanel.add(btnAdd);
         buttonPanel.add(btnUpdate);
