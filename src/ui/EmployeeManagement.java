@@ -206,6 +206,25 @@ public class EmployeeManagement extends JFrame {
             }
 
         });
+        btnClear.addActionListener(e -> {
+
+            txtFirstName.setText("");
+            txtLastName.setText("");
+            txtEmail.setText("");
+            txtPhone.setText("");
+            txtDepartment.setText("");
+            txtDesignation.setText("");
+            txtJoiningDate.setText("");
+            txtSalary.setText("");
+
+            cmbGender.setSelectedIndex(0);
+            cmbStatus.setSelectedIndex(0);
+
+            employeeTable.clearSelection();
+
+            selectedEmployeeId = -1;
+
+        });
 
         buttonPanel.add(btnAdd);
         buttonPanel.add(btnUpdate);
