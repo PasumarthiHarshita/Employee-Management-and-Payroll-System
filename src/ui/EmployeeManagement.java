@@ -225,6 +225,52 @@ public class EmployeeManagement extends JFrame {
             selectedEmployeeId = -1;
 
         });
+        btnSearch.addActionListener(e -> {
+
+            String input = JOptionPane.showInputDialog(this, "Enter Employee ID:");
+
+            if (input == null || input.trim().isEmpty()) {
+                return;
+            }
+
+            try {
+
+                int employeeId = Integer.parseInt(input);
+
+                EmployeeDAO dao = new EmployeeDAO();
+
+                Employee emp = dao.searchEmployee(employeeId);
+
+                if (emp != null) {
+
+                    selectedEmployeeId = emp.getEmployeeId();
+
+                    txtFirstName.setText(emp.getFirstName());
+                    txtLastName.setText(emp.getLastName());
+                    cmbGender.setSelectedItem(emp.getGender());
+                    txtEmail.setText(emp.getEmail());
+                    txtPhone.setText(emp.getPhone());
+                    txtDepartment.setText(emp.getDepartment());
+                    txtDesignation.setText(emp.getDesignation());
+                    txtJoiningDate.setText(emp.getJoiningDate());
+                    txtSalary.setText(String.valueOf(emp.getBasicSalary()));
+                    cmbStatus.setSelectedItem(emp.getStatus());
+
+                    JOptionPane.showMessageDialog(this, "Employee Found!");
+
+                } else {
+
+                    JOptionPane.showMessageDialog(this, "Employee Not Found!");
+
+                }
+
+            } catch (NumberFormatException ex) {
+
+                JOptionPane.showMessageDialog(this, "Please enter a valid Employee ID.");
+
+            }
+
+        });
 
         buttonPanel.add(btnAdd);
         buttonPanel.add(btnUpdate);

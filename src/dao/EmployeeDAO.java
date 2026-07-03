@@ -130,4 +130,43 @@ public class EmployeeDAO {
 
         return false;
     }
+    public Employee searchEmployee(int employeeId) {
+
+        try {
+
+            Connection con = DBConnection.getConnection();
+
+            String sql = "SELECT * FROM employees WHERE employee_id=?";
+
+            PreparedStatement ps = con.prepareStatement(sql);
+
+            ps.setInt(1, employeeId);
+
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+
+                Employee emp = new Employee();
+
+                emp.setEmployeeId(rs.getInt("employee_id"));
+                emp.setFirstName(rs.getString("first_name"));
+                emp.setLastName(rs.getString("last_name"));
+                emp.setGender(rs.getString("gender"));
+                emp.setEmail(rs.getString("email"));
+                emp.setPhone(rs.getString("phone"));
+                emp.setDepartment(rs.getString("department"));
+                emp.setDesignation(rs.getString("designation"));
+                emp.setJoiningDate(rs.getString("joining_date"));
+                emp.setBasicSalary(rs.getDouble("basic_salary"));
+                emp.setStatus(rs.getString("status"));
+
+                return emp;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
 }
