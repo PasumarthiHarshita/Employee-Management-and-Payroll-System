@@ -80,4 +80,34 @@ public class EmployeeDAO {
 
         return list;
     }
+    public boolean updateEmployee(Employee emp) {
+
+        try {
+
+            Connection con = DBConnection.getConnection();
+
+            String sql = "UPDATE employees SET first_name=?, last_name=?, gender=?, email=?, phone=?, department=?, designation=?, joining_date=?, basic_salary=?, status=? WHERE employee_id=?";
+
+            PreparedStatement ps = con.prepareStatement(sql);
+
+            ps.setString(1, emp.getFirstName());
+            ps.setString(2, emp.getLastName());
+            ps.setString(3, emp.getGender());
+            ps.setString(4, emp.getEmail());
+            ps.setString(5, emp.getPhone());
+            ps.setString(6, emp.getDepartment());
+            ps.setString(7, emp.getDesignation());
+            ps.setString(8, emp.getJoiningDate());
+            ps.setDouble(9, emp.getBasicSalary());
+            ps.setString(10, emp.getStatus());
+            ps.setInt(11, emp.getEmployeeId());
+
+            return ps.executeUpdate() > 0;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
 }

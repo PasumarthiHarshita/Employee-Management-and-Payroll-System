@@ -4,6 +4,8 @@ import dao.EmployeeDAO;
 import model.Employee;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.List;
@@ -39,6 +41,7 @@ public class EmployeeManagement extends JFrame {
     // Table
     JTable employeeTable;
     DefaultTableModel tableModel;
+    int selectedEmployeeId = -1;
     JScrollPane scrollPane;
     
     public EmployeeManagement() {
@@ -124,12 +127,18 @@ public class EmployeeManagement extends JFrame {
         btnDelete = new JButton("Delete");
         btnSearch = new JButton("Search");
         btnClear = new JButton("Clear");
-        btnAdd.addActionListener(e -> {
+        btnUpdate.addActionListener(e -> {
+
+            if (selectedEmployeeId == -1) {
+                JOptionPane.showMessageDialog(this, "Please select an employee first!");
+                return;
+            }
 
             try {
 
                 Employee emp = new Employee();
 
+                emp.setEmployeeId(selectedEmployeeId);
                 emp.setFirstName(txtFirstName.getText());
                 emp.setLastName(txtLastName.getText());
                 emp.setGender(cmbGender.getSelectedItem().toString());
@@ -143,21 +152,21 @@ public class EmployeeManagement extends JFrame {
 
                 EmployeeDAO dao = new EmployeeDAO();
 
-                if(dao.addEmployee(emp)){
+                if (dao.updateEmployee(emp)) {
 
-                    JOptionPane.showMessageDialog(this,"Employee Added Successfully!");
+                    JOptionPane.showMessageDialog(this, "Employee Updated Successfully!");
 
                     loadEmployees();
 
-                }else{
+                } else {
 
-                    JOptionPane.showMessageDialog(this,"Failed to Add Employee!");
+                    JOptionPane.showMessageDialog(this, "Update Failed!");
 
                 }
 
-            }catch(Exception ex){
+            } catch (Exception ex) {
 
-                JOptionPane.showMessageDialog(this,"Invalid Input!");
+                JOptionPane.showMessageDialog(this, "Invalid Input!");
 
             }
 
@@ -177,8 +186,12 @@ public class EmployeeManagement extends JFrame {
                 "ID",
                 "First Name",
                 "Last Name",
+                "Gender",
+                "Email",
+                "Phone",
                 "Department",
                 "Designation",
+                "Joining Date",
                 "Salary",
                 "Status"
         });
@@ -189,6 +202,36 @@ public class EmployeeManagement extends JFrame {
 
         add(scrollPane, BorderLayout.EAST);
         loadEmployees();
+        employeeTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+
+                if (!e.getValueIsAdjusting()) {
+
+                    int row = employeeTable.getSelectedRow();
+
+                    if (row != -1) {
+                    	selectedEmployeeId = Integer.parseInt(tableModel.getValueAt(row, 0).toString());
+
+                        txtFirstName.setText(tableModel.getValueAt(row, 1).toString());
+                        txtLastName.setText(tableModel.getValueAt(row, 2).toString());
+                        cmbGender.setSelectedItem(tableModel.getValueAt(row, 3).toString());
+                        txtEmail.setText(tableModel.getValueAt(row, 4).toString());
+                        txtPhone.setText(tableModel.getValueAt(row, 5).toString());
+                        txtDepartment.setText(tableModel.getValueAt(row, 6).toString());
+                        txtDesignation.setText(tableModel.getValueAt(row, 7).toString());
+                        txtJoiningDate.setText(tableModel.getValueAt(row, 8).toString());
+                        txtSalary.setText(tableModel.getValueAt(row, 9).toString());
+                        cmbStatus.setSelectedItem(tableModel.getValueAt(row, 10).toString());
+
+                    }
+
+                }
+
+            }
+
+        });
         setVisible(true);
     }
     private void loadEmployees() {
@@ -201,17 +244,19 @@ public class EmployeeManagement extends JFrame {
 
         for (Employee emp : employees) {
 
-            tableModel.addRow(new Object[]{
-
-                    emp.getEmployeeId(),
-                    emp.getFirstName(),
-                    emp.getLastName(),
-                    emp.getDepartment(),
-                    emp.getDesignation(),
-                    emp.getBasicSalary(),
-                    emp.getStatus()
-
-            });
+        	tableModel.addRow(new Object[]{
+        	        emp.getEmployeeId(),
+        	        emp.getFirstName(),
+        	        emp.getLastName(),
+        	        emp.getGender(),
+        	        emp.getEmail(),
+        	        emp.getPhone(),
+        	        emp.getDepartment(),
+        	        emp.getDesignation(),
+        	        emp.getJoiningDate(),
+        	        emp.getBasicSalary(),
+        	        emp.getStatus()
+        	});
 
         }
 
