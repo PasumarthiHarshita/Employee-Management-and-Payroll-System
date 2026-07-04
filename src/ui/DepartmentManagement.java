@@ -86,6 +86,80 @@ public class DepartmentManagement extends JFrame {
             }
 
         });
+        btnUpdate.addActionListener(e -> {
+
+            if (selectedDepartmentId == -1) {
+
+                JOptionPane.showMessageDialog(this, "Select a department first!");
+
+                return;
+
+            }
+
+            Department dept = new Department();
+
+            dept.setDepartmentId(selectedDepartmentId);
+            dept.setDepartmentName(txtDepartmentName.getText());
+            dept.setDepartmentHead(txtDepartmentHead.getText());
+            dept.setLocation(txtLocation.getText());
+
+            DepartmentDAO dao = new DepartmentDAO();
+
+            if (dao.updateDepartment(dept)) {
+
+                JOptionPane.showMessageDialog(this, "Department Updated Successfully!");
+
+                loadDepartments();
+
+            } else {
+
+                JOptionPane.showMessageDialog(this, "Update Failed!");
+
+            }
+
+        });
+        btnDelete.addActionListener(e -> {
+
+            if (selectedDepartmentId == -1) {
+
+                JOptionPane.showMessageDialog(this, "Please select a department first!");
+
+                return;
+
+            }
+
+            int choice = JOptionPane.showConfirmDialog(
+                    this,
+                    "Are you sure you want to delete this department?",
+                    "Confirm Delete",
+                    JOptionPane.YES_NO_OPTION
+            );
+
+            if (choice == JOptionPane.YES_OPTION) {
+
+                DepartmentDAO dao = new DepartmentDAO();
+
+                if (dao.deleteDepartment(selectedDepartmentId)) {
+
+                    JOptionPane.showMessageDialog(this, "Department Deleted Successfully!");
+
+                    loadDepartments();
+
+                    txtDepartmentName.setText("");
+                    txtDepartmentHead.setText("");
+                    txtLocation.setText("");
+
+                    selectedDepartmentId = -1;
+
+                } else {
+
+                    JOptionPane.showMessageDialog(this, "Delete Failed!");
+
+                }
+
+            }
+
+        });
 
         add(buttonPanel, BorderLayout.SOUTH);
 
@@ -104,6 +178,29 @@ public class DepartmentManagement extends JFrame {
 
         add(scrollPane, BorderLayout.EAST);
         loadDepartments();
+        loadDepartments();
+
+        departmentTable.getSelectionModel().addListSelectionListener(e -> {
+
+            if (!e.getValueIsAdjusting()) {
+
+                int row = departmentTable.getSelectedRow();
+
+                if (row != -1) {
+
+                    selectedDepartmentId = Integer.parseInt(tableModel.getValueAt(row, 0).toString());
+
+                    txtDepartmentName.setText(tableModel.getValueAt(row, 1).toString());
+                    txtDepartmentHead.setText(tableModel.getValueAt(row, 2).toString());
+                    txtLocation.setText(tableModel.getValueAt(row, 3).toString());
+
+                }
+
+            }
+
+        });
+
+        setVisible(true);
         setVisible(true);
     }
     private void loadDepartments(){

@@ -68,5 +68,47 @@ public class DepartmentDAO {
         return list;
 
     }
+    public boolean updateDepartment(Department dept) {
 
+        try {
+
+            Connection con = DBConnection.getConnection();
+
+            String sql = "UPDATE departments SET department_name=?, department_head=?, location=? WHERE department_id=?";
+
+            PreparedStatement ps = con.prepareStatement(sql);
+
+            ps.setString(1, dept.getDepartmentName());
+            ps.setString(2, dept.getDepartmentHead());
+            ps.setString(3, dept.getLocation());
+            ps.setInt(4, dept.getDepartmentId());
+
+            return ps.executeUpdate() > 0;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+    public boolean deleteDepartment(int departmentId) {
+
+        try {
+
+            Connection con = DBConnection.getConnection();
+
+            String sql = "DELETE FROM departments WHERE department_id=?";
+
+            PreparedStatement ps = con.prepareStatement(sql);
+
+            ps.setInt(1, departmentId);
+
+            return ps.executeUpdate() > 0;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
 }
