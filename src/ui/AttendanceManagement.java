@@ -242,6 +242,7 @@ public class AttendanceManagement extends JFrame {
             selectedAttendanceId = -1;
 
         });
+        
 
         setVisible(true);
     }
