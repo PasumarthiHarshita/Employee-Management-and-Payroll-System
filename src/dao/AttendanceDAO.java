@@ -90,4 +90,24 @@ public class AttendanceDAO {
 
         return false;
     }
+    public boolean deleteAttendance(int attendanceId) {
+
+        try {
+
+            Connection con = DBConnection.getConnection();
+
+            String sql = "DELETE FROM attendance WHERE attendance_id=?";
+
+            PreparedStatement ps = con.prepareStatement(sql);
+
+            ps.setInt(1, attendanceId);
+
+            return ps.executeUpdate() > 0;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
 }

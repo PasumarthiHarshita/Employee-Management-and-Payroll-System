@@ -186,6 +186,49 @@ public class AttendanceManagement extends JFrame {
             }
 
         });
+        
+        btnDelete.addActionListener(e -> {
+
+            if (selectedAttendanceId == -1) {
+
+                JOptionPane.showMessageDialog(this, "Please select an attendance record!");
+
+                return;
+
+            }
+
+            int choice = JOptionPane.showConfirmDialog(
+                    this,
+                    "Are you sure you want to delete this attendance record?",
+                    "Confirm Delete",
+                    JOptionPane.YES_NO_OPTION
+            );
+
+            if (choice == JOptionPane.YES_OPTION) {
+
+                AttendanceDAO dao = new AttendanceDAO();
+
+                if (dao.deleteAttendance(selectedAttendanceId)) {
+
+                    JOptionPane.showMessageDialog(this, "Attendance Deleted Successfully!");
+
+                    loadAttendance();
+
+                    txtEmployeeId.setText("");
+                    txtAttendanceDate.setText("");
+                    cmbStatus.setSelectedIndex(0);
+
+                    selectedAttendanceId = -1;
+
+                } else {
+
+                    JOptionPane.showMessageDialog(this, "Delete Failed!");
+
+                }
+
+            }
+
+        });
 
         setVisible(true);
     }
