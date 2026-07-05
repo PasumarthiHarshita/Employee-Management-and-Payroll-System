@@ -229,6 +229,19 @@ public class AttendanceManagement extends JFrame {
             }
 
         });
+        
+        btnClear.addActionListener(e -> {
+
+            txtEmployeeId.setText("");
+            txtAttendanceDate.setText("");
+
+            cmbStatus.setSelectedIndex(0);
+
+            attendanceTable.clearSelection();
+
+            selectedAttendanceId = -1;
+
+        });
 
         setVisible(true);
     }
