@@ -16,7 +16,7 @@ public class AdminDashboard extends JFrame {
 
         JButton btnEmployee = new JButton("Employee Management");
         JButton btnDepartment = new JButton("Department Management");
-
+        JButton btnAttendance = new JButton("Attendance Management");
         btnEmployee.addActionListener(e -> {
             new EmployeeManagement();
             dispose();
@@ -26,10 +26,18 @@ public class AdminDashboard extends JFrame {
             new DepartmentManagement();
             dispose();
         });
+        
+        
+        btnAttendance.addActionListener(e -> {
 
+            new AttendanceManagement();
+
+            dispose();
+
+        });
         panel.add(btnEmployee);
         panel.add(btnDepartment);
-
+        panel.add(btnAttendance);
         add(panel);
 
         setVisible(true);
