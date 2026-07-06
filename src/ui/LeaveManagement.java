@@ -25,6 +25,7 @@ public class LeaveManagement extends JFrame {
 
     JTable leaveTable;
     DefaultTableModel tableModel;
+    JScrollPane scrollPane;
 
     int selectedLeaveId = -1;
 
@@ -37,7 +38,7 @@ public class LeaveManagement extends JFrame {
         setLayout(new BorderLayout());
 
         JLabel title = new JLabel("Leave Management", SwingConstants.CENTER);
-        title.setFont(new Font("Arial", Font.BOLD, 24));
+        title.setFont(new Font("Arial", Font.BOLD,24));
         add(title, BorderLayout.NORTH);
 
         JPanel formPanel = new JPanel(new GridLayout(6,2,10,10));
@@ -108,9 +109,36 @@ public class LeaveManagement extends JFrame {
 
         leaveTable = new JTable(tableModel);
 
-        add(new JScrollPane(leaveTable), BorderLayout.EAST);
+        scrollPane = new JScrollPane(leaveTable);
+
+        add(scrollPane, BorderLayout.EAST);
 
         loadLeaves();
+     // Row Selection
+        leaveTable.getSelectionModel().addListSelectionListener(e -> {
+
+            if (!e.getValueIsAdjusting()) {
+
+                int row = leaveTable.getSelectedRow();
+
+                if (row != -1) {
+
+                    selectedLeaveId = Integer.parseInt(tableModel.getValueAt(row, 0).toString());
+
+                    txtEmployeeId.setText(tableModel.getValueAt(row, 1).toString());
+                    cmbLeaveType.setSelectedItem(tableModel.getValueAt(row, 2).toString());
+                    txtStartDate.setText(tableModel.getValueAt(row, 3).toString());
+                    txtEndDate.setText(tableModel.getValueAt(row, 4).toString());
+                    txtReason.setText(tableModel.getValueAt(row, 5).toString());
+                    cmbStatus.setSelectedItem(tableModel.getValueAt(row, 6).toString());
+
+                }
+
+            }
+
+        });
+
+        // Add Leave
         btnAdd.addActionListener(e -> {
 
             try {
@@ -145,9 +173,55 @@ public class LeaveManagement extends JFrame {
             }
 
         });
-        setVisible(true);
-    }
 
+        // Update Leave
+        btnUpdate.addActionListener(e -> {
+
+            if (selectedLeaveId == -1) {
+
+                JOptionPane.showMessageDialog(this, "Please select a leave request!");
+
+                return;
+
+            }
+
+            try {
+
+                LeaveRequest leave = new LeaveRequest();
+
+                leave.setLeaveId(selectedLeaveId);
+                leave.setEmployeeId(Integer.parseInt(txtEmployeeId.getText()));
+                leave.setLeaveType(cmbLeaveType.getSelectedItem().toString());
+                leave.setStartDate(txtStartDate.getText());
+                leave.setEndDate(txtEndDate.getText());
+                leave.setReason(txtReason.getText());
+                leave.setStatus(cmbStatus.getSelectedItem().toString());
+
+                LeaveDAO dao = new LeaveDAO();
+
+                if (dao.updateLeave(leave)) {
+
+                    JOptionPane.showMessageDialog(this, "Leave Updated Successfully!");
+
+                    loadLeaves();
+
+                } else {
+
+                    JOptionPane.showMessageDialog(this, "Update Failed!");
+
+                }
+
+            } catch (Exception ex) {
+
+                JOptionPane.showMessageDialog(this, "Please enter valid data!");
+
+            }
+
+        });
+
+        setVisible(true);
+
+        }
     private void loadLeaves() {
 
         tableModel.setRowCount(0);

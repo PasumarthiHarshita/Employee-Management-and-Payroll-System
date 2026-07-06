@@ -44,6 +44,7 @@ public class AdminDashboard extends JFrame {
             dispose();
 
         });
+        
         panel.add(btnEmployee);
         panel.add(btnDepartment);
         panel.add(btnAttendance);

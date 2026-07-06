@@ -73,4 +73,30 @@ public class LeaveDAO {
 
         return list;
     }
+    public boolean updateLeave(LeaveRequest leave) {
+
+        try {
+
+            Connection con = DBConnection.getConnection();
+
+            String sql = "UPDATE leave_requests SET employee_id=?, leave_type=?, start_date=?, end_date=?, reason=?, status=? WHERE leave_id=?";
+
+            PreparedStatement ps = con.prepareStatement(sql);
+
+            ps.setInt(1, leave.getEmployeeId());
+            ps.setString(2, leave.getLeaveType());
+            ps.setString(3, leave.getStartDate());
+            ps.setString(4, leave.getEndDate());
+            ps.setString(5, leave.getReason());
+            ps.setString(6, leave.getStatus());
+            ps.setInt(7, leave.getLeaveId());
+
+            return ps.executeUpdate() > 0;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
 }
