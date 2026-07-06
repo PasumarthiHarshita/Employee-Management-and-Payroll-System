@@ -264,7 +264,21 @@ public class LeaveManagement extends JFrame {
             }
 
         });
+        btnClear.addActionListener(e -> {
 
+            txtEmployeeId.setText("");
+            txtStartDate.setText("");
+            txtEndDate.setText("");
+            txtReason.setText("");
+
+            cmbLeaveType.setSelectedIndex(0);
+            cmbStatus.setSelectedIndex(0);
+
+            leaveTable.clearSelection();
+
+            selectedLeaveId = -1;
+
+        });
         setVisible(true);
 
         }
