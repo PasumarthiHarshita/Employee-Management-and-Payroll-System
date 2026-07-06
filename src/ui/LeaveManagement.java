@@ -218,6 +218,52 @@ public class LeaveManagement extends JFrame {
             }
 
         });
+        btnDelete.addActionListener(e -> {
+
+            if (selectedLeaveId == -1) {
+
+                JOptionPane.showMessageDialog(this, "Please select a leave request!");
+                return;
+
+            }
+
+            int choice = JOptionPane.showConfirmDialog(
+                    this,
+                    "Are you sure you want to delete this leave request?",
+                    "Confirm Delete",
+                    JOptionPane.YES_NO_OPTION
+            );
+
+            if (choice == JOptionPane.YES_OPTION) {
+
+                LeaveDAO dao = new LeaveDAO();
+
+                if (dao.deleteLeave(selectedLeaveId)) {
+
+                    JOptionPane.showMessageDialog(this, "Leave Deleted Successfully!");
+
+                    loadLeaves();
+
+                    txtEmployeeId.setText("");
+                    txtStartDate.setText("");
+                    txtEndDate.setText("");
+                    txtReason.setText("");
+
+                    cmbLeaveType.setSelectedIndex(0);
+                    cmbStatus.setSelectedIndex(0);
+
+                    leaveTable.clearSelection();
+                    selectedLeaveId = -1;
+
+                } else {
+
+                    JOptionPane.showMessageDialog(this, "Delete Failed!");
+
+                }
+
+            }
+
+        });
 
         setVisible(true);
 

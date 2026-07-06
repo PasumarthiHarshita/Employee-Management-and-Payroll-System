@@ -99,4 +99,24 @@ public class LeaveDAO {
 
         return false;
     }
+    public boolean deleteLeave(int leaveId) {
+
+        try {
+
+            Connection con = DBConnection.getConnection();
+
+            String sql = "DELETE FROM leave_requests WHERE leave_id=?";
+
+            PreparedStatement ps = con.prepareStatement(sql);
+
+            ps.setInt(1, leaveId);
+
+            return ps.executeUpdate() > 0;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
 }
