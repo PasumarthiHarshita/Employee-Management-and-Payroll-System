@@ -104,6 +104,28 @@ public class PayrollManagement extends JFrame {
         add(new JScrollPane(payrollTable), BorderLayout.EAST);
 
         loadPayrolls();
+        payrollTable.getSelectionModel().addListSelectionListener(e -> {
+
+            if (!e.getValueIsAdjusting()) {
+
+                int row = payrollTable.getSelectedRow();
+
+                if (row != -1) {
+
+                    selectedPayrollId = Integer.parseInt(tableModel.getValueAt(row, 0).toString());
+
+                    txtEmployeeId.setText(tableModel.getValueAt(row, 1).toString());
+                    txtEmployeeName.setText(tableModel.getValueAt(row, 2).toString());
+                    txtMonth.setText(tableModel.getValueAt(row, 3).toString());
+                    txtSalary.setText(tableModel.getValueAt(row, 4).toString());
+                    txtPaymentDate.setText(tableModel.getValueAt(row, 5).toString());
+                    cmbStatus.setSelectedItem(tableModel.getValueAt(row, 6).toString());
+
+                }
+
+            }
+
+        });
         btnAdd.addActionListener(e -> {
 
             try {
@@ -128,6 +150,48 @@ public class PayrollManagement extends JFrame {
                 } else {
 
                     JOptionPane.showMessageDialog(this, "Failed to Add Payroll!");
+
+                }
+
+            } catch (Exception ex) {
+
+                JOptionPane.showMessageDialog(this, "Please enter valid data!");
+
+            }
+
+        });
+        btnUpdate.addActionListener(e -> {
+
+            if (selectedPayrollId == -1) {
+
+                JOptionPane.showMessageDialog(this, "Please select a payroll record!");
+                return;
+
+            }
+
+            try {
+
+                Payroll payroll = new Payroll();
+
+                payroll.setPayrollId(selectedPayrollId);
+                payroll.setEmployeeId(Integer.parseInt(txtEmployeeId.getText()));
+                payroll.setEmployeeName(txtEmployeeName.getText());
+                payroll.setMonth(txtMonth.getText());
+                payroll.setBasicSalary(Double.parseDouble(txtSalary.getText()));
+                payroll.setPaymentDate(txtPaymentDate.getText());
+                payroll.setPaymentStatus(cmbStatus.getSelectedItem().toString());
+
+                PayrollDAO dao = new PayrollDAO();
+
+                if (dao.updatePayroll(payroll)) {
+
+                    JOptionPane.showMessageDialog(this, "Payroll Updated Successfully!");
+
+                    loadPayrolls();
+
+                } else {
+
+                    JOptionPane.showMessageDialog(this, "Update Failed!");
 
                 }
 

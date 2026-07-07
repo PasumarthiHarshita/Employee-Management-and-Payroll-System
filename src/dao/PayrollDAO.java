@@ -73,4 +73,30 @@ public class PayrollDAO {
 
         return list;
     }
+    public boolean updatePayroll(Payroll payroll) {
+
+        try {
+
+            Connection con = DBConnection.getConnection();
+
+            String sql = "UPDATE payroll SET employee_id=?, employee_name=?, month=?, basic_salary=?, payment_date=?, payment_status=? WHERE payroll_id=?";
+
+            PreparedStatement ps = con.prepareStatement(sql);
+
+            ps.setInt(1, payroll.getEmployeeId());
+            ps.setString(2, payroll.getEmployeeName());
+            ps.setString(3, payroll.getMonth());
+            ps.setDouble(4, payroll.getBasicSalary());
+            ps.setString(5, payroll.getPaymentDate());
+            ps.setString(6, payroll.getPaymentStatus());
+            ps.setInt(7, payroll.getPayrollId());
+
+            return ps.executeUpdate() > 0;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
 }
