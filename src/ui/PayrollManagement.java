@@ -249,6 +249,21 @@ public class PayrollManagement extends JFrame {
             }
 
         });
+        btnClear.addActionListener(e -> {
+
+            txtEmployeeId.setText("");
+            txtEmployeeName.setText("");
+            txtMonth.setText("");
+            txtSalary.setText("");
+            txtPaymentDate.setText("");
+
+            cmbStatus.setSelectedIndex(0);
+
+            payrollTable.clearSelection();
+
+            selectedPayrollId = -1;
+
+        });
         setVisible(true);
     }
 
