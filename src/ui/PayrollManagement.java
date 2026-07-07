@@ -200,6 +200,53 @@ public class PayrollManagement extends JFrame {
                 JOptionPane.showMessageDialog(this, "Please enter valid data!");
 
             }
+           
+        });
+        btnDelete.addActionListener(e -> {
+
+            if (selectedPayrollId == -1) {
+
+                JOptionPane.showMessageDialog(this, "Please select a payroll record!");
+                return;
+
+            }
+
+            int choice = JOptionPane.showConfirmDialog(
+                    this,
+                    "Are you sure you want to delete this payroll record?",
+                    "Confirm Delete",
+                    JOptionPane.YES_NO_OPTION
+            );
+
+            if (choice == JOptionPane.YES_OPTION) {
+
+                PayrollDAO dao = new PayrollDAO();
+
+                if (dao.deletePayroll(selectedPayrollId)) {
+
+                    JOptionPane.showMessageDialog(this, "Payroll Deleted Successfully!");
+
+                    loadPayrolls();
+
+                    txtEmployeeId.setText("");
+                    txtEmployeeName.setText("");
+                    txtMonth.setText("");
+                    txtSalary.setText("");
+                    txtPaymentDate.setText("");
+
+                    cmbStatus.setSelectedIndex(0);
+
+                    payrollTable.clearSelection();
+
+                    selectedPayrollId = -1;
+
+                } else {
+
+                    JOptionPane.showMessageDialog(this, "Delete Failed!");
+
+                }
+
+            }
 
         });
         setVisible(true);
