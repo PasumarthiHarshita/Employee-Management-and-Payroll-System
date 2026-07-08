@@ -56,7 +56,7 @@ public class AdminDashboard extends JFrame {
         });
         btnReports.addActionListener(e -> {
 
-            new EmployeeReport();
+            new ReportsDashboard();
 
         });
         
