@@ -7,7 +7,6 @@ The **Employee Management and Payroll System** is a desktop-based Human Resource
 This project follows the **DAO (Data Access Object)** design pattern and demonstrates CRUD operations, database connectivity, and object-oriented programming concepts.
 
 ---
-
 ## 🚀 Technologies Used
 
 - Java 17
