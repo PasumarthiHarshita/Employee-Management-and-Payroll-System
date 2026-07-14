@@ -127,6 +127,123 @@ public class EmployeeManagement extends JFrame {
         btnDelete = new JButton("Delete");
         btnSearch = new JButton("Search");
         btnClear = new JButton("Clear");
+        btnAdd.addActionListener(e -> {
+
+            try {
+
+                // Validation
+                if (txtFirstName.getText().trim().isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "First Name is required!");
+                    txtFirstName.requestFocus();
+                    return;
+                }
+                if (txtLastName.getText().trim().isEmpty()) {
+
+                    JOptionPane.showMessageDialog(this, "Last Name is required!");
+
+                    txtLastName.requestFocus();
+
+                    return;
+                }
+                if (txtEmail.getText().trim().isEmpty()) {
+
+                    JOptionPane.showMessageDialog(this, "Email is required!");
+
+                    txtEmail.requestFocus();
+
+                    return;
+                }
+                
+                if (txtPhone.getText().trim().isEmpty()) {
+
+                    JOptionPane.showMessageDialog(this, "Phone Number is required!");
+
+                    txtPhone.requestFocus();
+
+                    return;
+                }
+                if (txtDepartment.getText().trim().isEmpty()) {
+
+                    JOptionPane.showMessageDialog(this, "Department is required!");
+
+                    txtDepartment.requestFocus();
+
+                    return;
+                }
+                
+                if (txtDesignation.getText().trim().isEmpty()) {
+
+                    JOptionPane.showMessageDialog(this, "Designation is required!");
+
+                    txtDesignation.requestFocus();
+
+                    return;
+                }
+                
+                if (txtJoiningDate.getText().trim().isEmpty()) {
+
+                    JOptionPane.showMessageDialog(this, "Joining Date is required!");
+
+                    txtJoiningDate.requestFocus();
+
+                    return;
+                }
+                
+                if (txtSalary.getText().trim().isEmpty()) {
+
+                    JOptionPane.showMessageDialog(this, "Salary is required!");
+
+                    txtSalary.requestFocus();
+
+                    return;
+                }
+                
+                try {
+
+                    Double.parseDouble(txtSalary.getText());
+
+                } catch (NumberFormatException ex) {
+
+                    JOptionPane.showMessageDialog(this, "Salary must be a valid number!");
+
+                    txtSalary.requestFocus();
+
+                    return;
+                }
+                Employee emp = new Employee();
+
+                emp.setFirstName(txtFirstName.getText());
+                emp.setLastName(txtLastName.getText());
+                emp.setGender(cmbGender.getSelectedItem().toString());
+                emp.setEmail(txtEmail.getText());
+                emp.setPhone(txtPhone.getText());
+                emp.setDepartment(txtDepartment.getText());
+                emp.setDesignation(txtDesignation.getText());
+                emp.setJoiningDate(txtJoiningDate.getText());
+                emp.setBasicSalary(Double.parseDouble(txtSalary.getText()));
+                emp.setStatus(cmbStatus.getSelectedItem().toString());
+
+                EmployeeDAO dao = new EmployeeDAO();
+
+                if (dao.addEmployee(emp)) {
+
+                    JOptionPane.showMessageDialog(this, "Employee Added Successfully!");
+
+                    loadEmployees();
+
+                } else {
+
+                    JOptionPane.showMessageDialog(this, "Failed to Add Employee!");
+
+                }
+
+            } catch (Exception ex) {
+
+                JOptionPane.showMessageDialog(this, "Invalid Input!");
+
+            }
+
+        });
         btnUpdate.addActionListener(e -> {
 
             if (selectedEmployeeId == -1) {
