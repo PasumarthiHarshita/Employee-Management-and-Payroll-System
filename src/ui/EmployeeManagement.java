@@ -145,23 +145,26 @@ public class EmployeeManagement extends JFrame {
 
                     return;
                 }
-                if (txtEmail.getText().trim().isEmpty()) {
+                if (!txtEmail.getText().contains("@")) {
 
-                    JOptionPane.showMessageDialog(this, "Email is required!");
+                    JOptionPane.showMessageDialog(this, "Please enter a valid email address!");
 
                     txtEmail.requestFocus();
 
                     return;
                 }
                 
-                if (txtPhone.getText().trim().isEmpty()) {
+                String phone = txtPhone.getText().trim();
 
-                    JOptionPane.showMessageDialog(this, "Phone Number is required!");
+                if (!phone.matches("\\d{10}")) {
+
+                    JOptionPane.showMessageDialog(this, "Phone number must contain exactly 10 digits!");
 
                     txtPhone.requestFocus();
 
                     return;
                 }
+                
                 if (txtDepartment.getText().trim().isEmpty()) {
 
                     JOptionPane.showMessageDialog(this, "Department is required!");
