@@ -142,7 +142,59 @@ public class LeaveManagement extends JFrame {
         btnAdd.addActionListener(e -> {
 
             try {
+            	if (txtEmployeeId.getText().trim().isEmpty()) {
 
+            	    JOptionPane.showMessageDialog(this, "Employee ID is required!");
+
+            	    txtEmployeeId.requestFocus();
+
+            	    return;
+
+            	}
+            	
+            	try {
+
+            	    Integer.parseInt(txtEmployeeId.getText());
+
+            	} catch (NumberFormatException ex) {
+
+            	    JOptionPane.showMessageDialog(this, "Employee ID must be a valid number!");
+
+            	    txtEmployeeId.requestFocus();
+
+            	    return;
+
+            	}
+            	
+            	if (txtStartDate.getText().trim().isEmpty()) {
+
+            	    JOptionPane.showMessageDialog(this, "Start Date is required!");
+
+            	    txtStartDate.requestFocus();
+
+            	    return;
+
+            	}
+            	
+            	if (txtEndDate.getText().trim().isEmpty()) {
+
+            	    JOptionPane.showMessageDialog(this, "End Date is required!");
+
+            	    txtEndDate.requestFocus();
+
+            	    return;
+
+            	}
+            	
+            	if (txtReason.getText().trim().isEmpty()) {
+
+            	    JOptionPane.showMessageDialog(this, "Reason is required!");
+
+            	    txtReason.requestFocus();
+
+            	    return;
+
+            	}
                 LeaveRequest leave = new LeaveRequest();
 
                 leave.setEmployeeId(Integer.parseInt(txtEmployeeId.getText()));
