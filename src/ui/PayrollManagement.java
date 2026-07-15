@@ -129,7 +129,83 @@ public class PayrollManagement extends JFrame {
         btnAdd.addActionListener(e -> {
 
             try {
+            	if (txtEmployeeId.getText().trim().isEmpty()) {
 
+            	    JOptionPane.showMessageDialog(this, "Employee ID is required!");
+
+            	    txtEmployeeId.requestFocus();
+
+            	    return;
+
+            	}
+            	
+            	try {
+
+            	    Integer.parseInt(txtEmployeeId.getText());
+
+            	} catch (NumberFormatException ex) {
+
+            	    JOptionPane.showMessageDialog(this, "Employee ID must be a valid number!");
+
+            	    txtEmployeeId.requestFocus();
+
+            	    return;
+
+            	}
+            	
+            	if (txtEmployeeName.getText().trim().isEmpty()) {
+
+            	    JOptionPane.showMessageDialog(this, "Employee Name is required!");
+
+            	    txtEmployeeName.requestFocus();
+
+            	    return;
+
+            	}
+            	
+            	if (txtMonth.getText().trim().isEmpty()) {
+
+            	    JOptionPane.showMessageDialog(this, "Month is required!");
+
+            	    txtMonth.requestFocus();
+
+            	    return;
+
+            	}
+            	
+            	if (txtSalary.getText().trim().isEmpty()) {
+
+            	    JOptionPane.showMessageDialog(this, "Basic Salary is required!");
+
+            	    txtSalary.requestFocus();
+
+            	    return;
+
+            	}
+            	
+            	try {
+
+            	    Double.parseDouble(txtSalary.getText());
+
+            	} catch (NumberFormatException ex) {
+
+            	    JOptionPane.showMessageDialog(this, "Basic Salary must be a valid number!");
+
+            	    txtSalary.requestFocus();
+
+            	    return;
+
+            	}
+            	
+            	if (txtPaymentDate.getText().trim().isEmpty()) {
+
+            	    JOptionPane.showMessageDialog(this, "Payment Date is required!");
+
+            	    txtPaymentDate.requestFocus();
+
+            	    return;
+
+            	}
                 Payroll payroll = new Payroll();
 
                 payroll.setEmployeeId(Integer.parseInt(txtEmployeeId.getText()));
@@ -146,7 +222,15 @@ public class PayrollManagement extends JFrame {
                     JOptionPane.showMessageDialog(this, "Payroll Added Successfully!");
 
                     loadPayrolls();
+                    txtEmployeeId.setText("");
+                    txtEmployeeName.setText("");
+                    txtMonth.setText("");
+                    txtSalary.setText("");
+                    txtPaymentDate.setText("");
 
+                    cmbStatus.setSelectedIndex(0);
+                    payrollTable.clearSelection();
+                    selectedPayrollId = -1;
                 } else {
 
                     JOptionPane.showMessageDialog(this, "Failed to Add Payroll!");
