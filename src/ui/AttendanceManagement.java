@@ -116,7 +116,37 @@ public class AttendanceManagement extends JFrame {
         btnAdd.addActionListener(e -> {
 
             try {
+            	if (txtEmployeeId.getText().trim().isEmpty()) {
 
+            	    JOptionPane.showMessageDialog(this, "Employee ID is required!");
+
+            	    txtEmployeeId.requestFocus();
+
+            	    return;
+
+            	}
+            	try {
+
+            	    Integer.parseInt(txtEmployeeId.getText());
+
+            	} catch (NumberFormatException ex) {
+
+            	    JOptionPane.showMessageDialog(this, "Employee ID must be a valid number!");
+
+            	    txtEmployeeId.requestFocus();
+
+            	    return;
+
+            	}
+            	if (txtAttendanceDate.getText().trim().isEmpty()) {
+
+            	    JOptionPane.showMessageDialog(this, "Attendance Date is required!");
+
+            	    txtAttendanceDate.requestFocus();
+
+            	    return;
+
+            	}
                 Attendance attendance = new Attendance();
 
                 attendance.setEmployeeId(Integer.parseInt(txtEmployeeId.getText()));
