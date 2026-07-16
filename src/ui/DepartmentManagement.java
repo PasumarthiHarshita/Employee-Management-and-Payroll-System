@@ -25,31 +25,38 @@ public class DepartmentManagement extends JFrame {
     public DepartmentManagement() {
 
         setTitle("Department Management");
-        setSize(900,600);
+        setSize(1200,700);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout());
 
         JLabel title = new JLabel("Department Management", SwingConstants.CENTER);
-        title.setFont(new Font("Arial", Font.BOLD, 24));
+
+        title.setFont(new Font("Arial", Font.BOLD, 28));
+
+        title.setBorder(BorderFactory.createEmptyBorder(15,10,15,10));
 
         add(title, BorderLayout.NORTH);
 
         JPanel formPanel = new JPanel(new GridLayout(3,2,10,10));
+        
+        formPanel.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
 
         txtDepartmentName = new JTextField();
         txtDepartmentHead = new JTextField();
         txtLocation = new JTextField();
 
-        formPanel.add(new JLabel("Department Name"));
-        formPanel.add(txtDepartmentName);
+        JLabel lblDepartmentName = new JLabel("Department Name");
+        lblDepartmentName.setFont(new Font("Arial", Font.BOLD,13));
 
+        formPanel.add(lblDepartmentName);
+        formPanel.add(txtDepartmentName);
         formPanel.add(new JLabel("Department Head"));
         formPanel.add(txtDepartmentHead);
 
         formPanel.add(new JLabel("Location"));
         formPanel.add(txtLocation);
-
+        
         add(formPanel, BorderLayout.CENTER);
 
         JPanel buttonPanel = new JPanel();
@@ -58,7 +65,18 @@ public class DepartmentManagement extends JFrame {
         btnUpdate = new JButton("Update");
         btnDelete = new JButton("Delete");
         btnClear = new JButton("Clear");
+        Font buttonFont = new Font("Arial", Font.BOLD, 14);
 
+        btnAdd.setFont(buttonFont);
+        btnUpdate.setFont(buttonFont);
+        btnDelete.setFont(buttonFont);
+        btnClear.setFont(buttonFont);
+
+        btnAdd.setPreferredSize(new Dimension(100,35));
+        btnUpdate.setPreferredSize(new Dimension(100,35));
+        btnDelete.setPreferredSize(new Dimension(100,35));
+        btnClear.setPreferredSize(new Dimension(100,35));
+        
         buttonPanel.add(btnAdd);
         buttonPanel.add(btnUpdate);
         buttonPanel.add(btnDelete);
@@ -78,6 +96,15 @@ public class DepartmentManagement extends JFrame {
                 JOptionPane.showMessageDialog(this,"Department Added Successfully!");
 
                 loadDepartments();
+             
+
+                txtDepartmentName.setText("");
+                txtDepartmentHead.setText("");
+                txtLocation.setText("");
+
+                departmentTable.clearSelection();
+
+                selectedDepartmentId = -1;
 
             }else{
 
@@ -160,6 +187,17 @@ public class DepartmentManagement extends JFrame {
             }
 
         });
+        btnClear.addActionListener(e -> {
+
+            txtDepartmentName.setText("");
+            txtDepartmentHead.setText("");
+            txtLocation.setText("");
+
+            departmentTable.clearSelection();
+
+            selectedDepartmentId = -1;
+
+        });
 
         add(buttonPanel, BorderLayout.SOUTH);
 
@@ -173,11 +211,21 @@ public class DepartmentManagement extends JFrame {
         });
 
         departmentTable = new JTable(tableModel);
+        departmentTable.setRowHeight(25);
+
+        departmentTable.getTableHeader().setFont(new Font("Arial", Font.BOLD, 14));
+
+        departmentTable.setFont(new Font("Arial", Font.PLAIN, 13));
+
+        departmentTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
         scrollPane = new JScrollPane(departmentTable);
 
+        scrollPane.setPreferredSize(new Dimension(650,0));
+
         add(scrollPane, BorderLayout.EAST);
-        loadDepartments();
+        
+        
         loadDepartments();
 
         departmentTable.getSelectionModel().addListSelectionListener(e -> {
@@ -200,7 +248,6 @@ public class DepartmentManagement extends JFrame {
 
         });
 
-        setVisible(true);
         setVisible(true);
     }
     private void loadDepartments(){
