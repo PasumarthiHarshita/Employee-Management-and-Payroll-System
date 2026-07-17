@@ -83,7 +83,19 @@ public class AdminDashboard extends JFrame {
         
         btnExit.addActionListener(e -> {
 
-            System.exit(0);
+            int choice = JOptionPane.showConfirmDialog(
+                    this,
+                    "Are you sure you want to exit the application?",
+                    "Exit Confirmation",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE
+            );
+
+            if (choice == JOptionPane.YES_OPTION) {
+                dispose();   // closes only the dashboard
+                // If this should close the entire application, use:
+                // System.exit(0);
+            }
 
         });
         panel.add(btnEmployee);
