@@ -76,6 +76,11 @@ public class LoginFrame extends JFrame {
 
                     JOptionPane.showMessageDialog(null, "Invalid Username or Password");
 
+                    usernameField.setText("");
+                    passwordField.setText("");
+
+                    usernameField.requestFocusInWindow();
+
                 }
             }
         });
