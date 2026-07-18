@@ -13,14 +13,15 @@ public class LoginFrame extends JFrame {
     JTextField usernameField;
     JPasswordField passwordField;
     JButton loginButton;
-
+    JCheckBox showPasswordCheckBox;
+    
     public LoginFrame() {
 
         setTitle("Employee Management and Payroll System");
         setSize(450, 300);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new GridLayout(4, 2, 10, 10));
+        setLayout(new GridLayout(5, 2, 10, 10));
 
         JLabel userLabel = new JLabel("Username:");
         JLabel passLabel = new JLabel("Password:");
@@ -29,6 +30,17 @@ public class LoginFrame extends JFrame {
         passwordField = new JPasswordField();
 
         loginButton = new JButton("Login");
+        showPasswordCheckBox = new JCheckBox("Show Password");
+
+        char defaultEchoChar = passwordField.getEchoChar();
+
+        showPasswordCheckBox.addActionListener(e -> {
+            if (showPasswordCheckBox.isSelected()) {
+                passwordField.setEchoChar((char) 0);
+            } else {
+                passwordField.setEchoChar(defaultEchoChar);
+            }
+        });
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -71,6 +83,10 @@ public class LoginFrame extends JFrame {
         add(usernameField);
         add(passLabel);
         add(passwordField);
+
+        add(new JLabel());
+        add(showPasswordCheckBox);
+
         add(new JLabel());
         add(loginButton);
 
