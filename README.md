@@ -2,9 +2,9 @@
 
 ## 📌 Overview
 
-The **Employee Management and Payroll System** is a desktop-based Human Resource Management System (HRMS) developed using **Java Swing**, **JDBC**, and **MySQL**. The application enables organizations to manage employees, departments, attendance, leave requests, payroll details, and reports through an easy-to-use graphical interface.
+The **Employee Management and Payroll System** is a desktop-based Human Resource Management System (HRMS) developed using **Java Swing**, **JDBC**, and **MySQL**. It provides a user-friendly interface for managing employees, departments, attendance, leave requests, payroll, and reports.
 
-This project follows the **DAO (Data Access Object)** design pattern and demonstrates CRUD operations, database connectivity, and object-oriented programming concepts.
+The application implements the **DAO (Data Access Object)** design pattern to separate business logic from database operations. It demonstrates CRUD operations, role-based authentication, input validation, user-friendly interface design, and efficient database connectivity using JDBC.
 
 ---
 ## 🚀 Technologies Used
@@ -16,6 +16,8 @@ This project follows the **DAO (Data Access Object)** design pattern and demonst
 - Eclipse IDE
 - Git
 - GitHub
+- Object-Oriented Programming (OOP)
+- DAO Design Pattern
 
 ---
 
@@ -24,13 +26,16 @@ This project follows the **DAO (Data Access Object)** design pattern and demonst
 ### 🔐 Authentication
 - Secure Login System
 - Role-Based Access (Admin, HR, Employee)
+- Show/Hide Password
+- Improved Login Validation
+- Automatic Field Reset After Invalid Login
 
 ### 👨‍💼 Employee Management
 - Add Employee
 - View Employees
-- Search Employee
 - Update Employee
 - Delete Employee
+- Input Validation
 - Clear Form
 
 ### 🏢 Department Management
@@ -38,13 +43,16 @@ This project follows the **DAO (Data Access Object)** design pattern and demonst
 - View Departments
 - Update Department
 - Delete Department
+- Input Validation
 - Clear Form
+- Improved User Interface
 
 ### 📅 Attendance Management
 - Add Attendance
 - View Attendance
 - Update Attendance
 - Delete Attendance
+- Input Validation
 - Clear Form
 
 ### 📝 Leave Management
@@ -52,6 +60,7 @@ This project follows the **DAO (Data Access Object)** design pattern and demonst
 - View Leave Requests
 - Update Leave Request
 - Delete Leave Request
+- Input Validation
 - Clear Form
 
 ### 💰 Payroll Management
@@ -59,6 +68,7 @@ This project follows the **DAO (Data Access Object)** design pattern and demonst
 - View Payroll
 - Update Payroll
 - Delete Payroll
+- Input Validation
 - Clear Form
 
 ### 📊 Reports
@@ -66,6 +76,12 @@ This project follows the **DAO (Data Access Object)** design pattern and demonst
 - Attendance Report
 - Leave Report
 - Payroll Report
+
+### 🎨 User Experience
+- Professional Java Swing Interface
+- Confirmation Dialogs for Critical Operations
+- Improved Dashboard Layout
+- Better Form Navigation
 
 ---
 
@@ -114,12 +130,13 @@ MySQL Database
 
 ## 🎯 Future Enhancements
 
-- Export Reports to PDF
-- Email Notifications
-- Advanced Search & Filters
+- Export Reports to PDF/Excel
+- Advanced Search and Filtering
 - Dashboard Analytics
 - Password Encryption
-- Responsive UI Improvements
+- Email Notifications
+- Backup & Restore Database
+- Audit Logs
 
 ---
 
