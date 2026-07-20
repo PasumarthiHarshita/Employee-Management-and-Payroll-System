@@ -5,7 +5,7 @@ import java.util.List;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-
+import java.awt.event.KeyEvent;
 public class DepartmentManagement extends JFrame {
 
     JTextField txtDepartmentName;
@@ -67,6 +67,11 @@ public class DepartmentManagement extends JFrame {
         btnClear = new JButton("Clear");
         Font buttonFont = new Font("Arial", Font.BOLD, 14);
 
+        btnAdd.setMnemonic(KeyEvent.VK_A);
+        btnUpdate.setMnemonic(KeyEvent.VK_U);
+        btnDelete.setMnemonic(KeyEvent.VK_D);
+        btnClear.setMnemonic(KeyEvent.VK_C);
+        
         btnAdd.setFont(buttonFont);
         btnUpdate.setFont(buttonFont);
         btnDelete.setFont(buttonFont);

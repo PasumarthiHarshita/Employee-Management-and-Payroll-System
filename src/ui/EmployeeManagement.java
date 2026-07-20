@@ -1,6 +1,7 @@
 package ui;
 
 import dao.EmployeeDAO;
+
 import model.Employee;
 
 import javax.swing.*;
@@ -9,6 +10,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.List;
+import java.awt.event.KeyEvent;
 
 public class EmployeeManagement extends JFrame {
 
@@ -127,6 +129,13 @@ public class EmployeeManagement extends JFrame {
         btnDelete = new JButton("Delete");
         btnSearch = new JButton("Search");
         btnClear = new JButton("Clear");
+        
+        btnAdd.setMnemonic(KeyEvent.VK_A);
+        btnUpdate.setMnemonic(KeyEvent.VK_U);
+        btnDelete.setMnemonic(KeyEvent.VK_D);
+        btnClear.setMnemonic(KeyEvent.VK_C);
+        
+        
         btnAdd.addActionListener(e -> {
 
             try {
@@ -164,6 +173,7 @@ public class EmployeeManagement extends JFrame {
 
                     return;
                 }
+                
                 
                 if (txtDepartment.getText().trim().isEmpty()) {
 

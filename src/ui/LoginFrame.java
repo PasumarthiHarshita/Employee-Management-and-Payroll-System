@@ -94,7 +94,7 @@ public class LoginFrame extends JFrame {
 
         add(new JLabel());
         add(loginButton);
-
+        usernameField.requestFocusInWindow();
         setVisible(true);
     }
 }

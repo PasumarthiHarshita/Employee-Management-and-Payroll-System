@@ -7,7 +7,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.List;
-
+import java.awt.event.KeyEvent;
 public class AttendanceManagement extends JFrame {
 
     JTextField txtEmployeeId;
@@ -66,6 +66,11 @@ public class AttendanceManagement extends JFrame {
         btnDelete = new JButton("Delete");
         btnClear = new JButton("Clear");
 
+        btnAdd.setMnemonic(KeyEvent.VK_A);
+        btnUpdate.setMnemonic(KeyEvent.VK_U);
+        btnDelete.setMnemonic(KeyEvent.VK_D);
+        btnClear.setMnemonic(KeyEvent.VK_C);
+        
         buttonPanel.add(btnAdd);
         buttonPanel.add(btnUpdate);
         buttonPanel.add(btnDelete);
