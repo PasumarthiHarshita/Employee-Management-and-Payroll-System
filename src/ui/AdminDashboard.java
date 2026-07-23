@@ -106,7 +106,6 @@ public class AdminDashboard extends JFrame {
         panel.add(btnReports);
         panel.add(btnExit);
         add(panel);
-
         setVisible(true);
     }
 }
